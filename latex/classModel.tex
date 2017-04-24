@@ -1,0 +1,124 @@
+\hypertarget{classModel}{}\section{Model Class Reference}
+\label{classModel}\index{Model@{Model}}
+
+
+Inheritance diagram for Model\+:
+% FIG 0
+
+
+Collaboration diagram for Model\+:
+% FIG 1
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual int {\bfseries Model\+Init\+Sim} ()\hypertarget{classModel_ae8ba7da585f7c4f25571533c095f2273}{}\label{classModel_ae8ba7da585f7c4f25571533c095f2273}
+
+\item 
+virtual int {\bfseries Next\+Sample\+Hit} ()\hypertarget{classModel_a78e4915f0224ef2550200da170f97939}{}\label{classModel_a78e4915f0224ef2550200da170f97939}
+
+\item 
+virtual int {\bfseries Model\+Outputs} ()\hypertarget{classModel_afed286e21c3640a0768cafd3efd0c5c9}{}\label{classModel_afed286e21c3640a0768cafd3efd0c5c9}
+
+\item 
+virtual int {\bfseries Model\+Update} (double time)\hypertarget{classModel_a0bc7b85657eaabed14a338f37ea7cd98}{}\label{classModel_a0bc7b85657eaabed14a338f37ea7cd98}
+
+\item 
+virtual int {\bfseries Model\+Derivatives} (double time, Param\+Vect $\ast$variables, Param\+Vect $\ast$derivadas)\hypertarget{classModel_abddbc4bf9083ff32aea89a2b465b296c}{}\label{classModel_abddbc4bf9083ff32aea89a2b465b296c}
+
+\item 
+virtual int {\bfseries Model\+Terminate} ()\hypertarget{classModel_a5091324e287b047d30ece889725c2dc4}{}\label{classModel_a5091324e287b047d30ece889725c2dc4}
+
+\item 
+virtual int {\bfseries Model\+Start} ()\hypertarget{classModel_a0127158c79af72decc3e188c841fc947}{}\label{classModel_a0127158c79af72decc3e188c841fc947}
+
+\item 
+virtual int {\bfseries Model\+R\+AZ} ()\hypertarget{classModel_a2e7b56b6cb4096dac08b976e7e97c345}{}\label{classModel_a2e7b56b6cb4096dac08b976e7e97c345}
+
+\item 
+virtual int {\bfseries Model\+R\+AZ} (double alive, double dead, double tumor, double ves, double state)\hypertarget{classModel_ae3babc024a4efc7435027bf7027e83f7}{}\label{classModel_ae3babc024a4efc7435027bf7027e83f7}
+
+\item 
+Param\+Vect $\ast$ {\bfseries get\+Inputs} ()\hypertarget{classModel_a1f620e02d5a86d46d0f457d1434ed7cb}{}\label{classModel_a1f620e02d5a86d46d0f457d1434ed7cb}
+
+\item 
+Param\+Vect $\ast$ {\bfseries get\+States} ()\hypertarget{classModel_a3549c6b8e6f2309b1fe4855608c7b982}{}\label{classModel_a3549c6b8e6f2309b1fe4855608c7b982}
+
+\item 
+Param\+Vect $\ast$ {\bfseries get\+Deriv\+States} ()\hypertarget{classModel_a44e626bc349c1e65c24ce428581fb6a0}{}\label{classModel_a44e626bc349c1e65c24ce428581fb6a0}
+
+\item 
+Param\+Vect $\ast$ {\bfseries get\+Outputs} ()\hypertarget{classModel_acd88c9afa0894aa3ef5423cfc366babb}{}\label{classModel_acd88c9afa0894aa3ef5423cfc366babb}
+
+\item 
+Param\+Vect $\ast$ {\bfseries get\+Parameters} ()\hypertarget{classModel_a80ccc79760b0ab3bfbcf39a8571eac69}{}\label{classModel_a80ccc79760b0ab3bfbcf39a8571eac69}
+
+\item 
+model\+Type {\bfseries get\+Model\+Type} ()\hypertarget{classModel_a24d1b194299124c3f65e4f20855d7104}{}\label{classModel_a24d1b194299124c3f65e4f20855d7104}
+
+\item 
+int {\bfseries get\+Num\+Inputs} ()\hypertarget{classModel_a7e5d25ef9db01179233b54faea3ad190}{}\label{classModel_a7e5d25ef9db01179233b54faea3ad190}
+
+\item 
+int {\bfseries get\+Num\+States} ()\hypertarget{classModel_a07d29a7bb225622ca88d559e8bdfe031}{}\label{classModel_a07d29a7bb225622ca88d559e8bdfe031}
+
+\item 
+int {\bfseries get\+Num\+Outputs} ()\hypertarget{classModel_a8c4523b58bc1edd5c905d1c7c8da4856}{}\label{classModel_a8c4523b58bc1edd5c905d1c7c8da4856}
+
+\item 
+int {\bfseries get\+Num\+Parameters} ()\hypertarget{classModel_a8739c95eafda946f6382ed158895be01}{}\label{classModel_a8739c95eafda946f6382ed158895be01}
+
+\item 
+int {\bfseries get\+Num\+Components} ()\hypertarget{classModel_ad42ac7f8c810754efbd8604036f63264}{}\label{classModel_ad42ac7f8c810754efbd8604036f63264}
+
+\item 
+{\bfseries Model} (model\+Type type, int num\+In, int num\+St, int num\+Out, int num\+Param, int num\+Comp)\hypertarget{classModel_a933ee1ac67b14821e764c85b419c0b9e}{}\label{classModel_a933ee1ac67b14821e764c85b419c0b9e}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+model\+Type {\bfseries type\+Model}\hypertarget{classModel_a523ada7c8d36d9184048aa35b8fb3cc5}{}\label{classModel_a523ada7c8d36d9184048aa35b8fb3cc5}
+
+\item 
+int {\bfseries num\+Inputs}\hypertarget{classModel_a573bf3d8be623e43026465129d8fd994}{}\label{classModel_a573bf3d8be623e43026465129d8fd994}
+
+\item 
+int {\bfseries num\+States}\hypertarget{classModel_aa8e6e9a57dad78c50f7faad02c36cd51}{}\label{classModel_aa8e6e9a57dad78c50f7faad02c36cd51}
+
+\item 
+int {\bfseries num\+Outputs}\hypertarget{classModel_a3e77ba898f866a2700b7ca0287290976}{}\label{classModel_a3e77ba898f866a2700b7ca0287290976}
+
+\item 
+int {\bfseries num\+Parameters}\hypertarget{classModel_a32df6ccb5ac3452654824b870ca6d7bd}{}\label{classModel_a32df6ccb5ac3452654824b870ca6d7bd}
+
+\item 
+unsigned int {\bfseries num\+Components}\hypertarget{classModel_a4efbf9261f2d061ea38f22e654f0cd04}{}\label{classModel_a4efbf9261f2d061ea38f22e654f0cd04}
+
+\item 
+Param\+Vect $\ast$ {\bfseries inputs}\hypertarget{classModel_ae37148eddc1f582b21862c65825e4883}{}\label{classModel_ae37148eddc1f582b21862c65825e4883}
+
+\item 
+Param\+Vect $\ast$ {\bfseries states}\hypertarget{classModel_a95d938ddd2e21e3d515c73405439e3a4}{}\label{classModel_a95d938ddd2e21e3d515c73405439e3a4}
+
+\item 
+Param\+Vect $\ast$ {\bfseries deriv\+States}\hypertarget{classModel_a629a0640083ee168e9ce9f56b157a118}{}\label{classModel_a629a0640083ee168e9ce9f56b157a118}
+
+\item 
+Param\+Vect $\ast$ {\bfseries outputs}\hypertarget{classModel_a9bb34805b741e2487485fcf952d58113}{}\label{classModel_a9bb34805b741e2487485fcf952d58113}
+
+\item 
+Param\+Vect $\ast$ {\bfseries parameters}\hypertarget{classModel_a6f977294062afde47f4d11b537b877a5}{}\label{classModel_a6f977294062afde47f4d11b537b877a5}
+
+\item 
+vector$<$ \hyperlink{classModel}{Model} $\ast$ $>$ $\ast$ {\bfseries components}\hypertarget{classModel_a6dd70d76743fa32ec787769e6905259b}{}\label{classModel_a6dd70d76743fa32ec787769e6905259b}
+
+\item 
+\hyperlink{classModel}{Model} $\ast$ {\bfseries parent}\hypertarget{classModel_a1f4bff9a38ebed22eed876a85718dbcf}{}\label{classModel_a1f4bff9a38ebed22eed876a85718dbcf}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Model.\+h\item 
+Model.\+cpp\end{DoxyCompactItemize}

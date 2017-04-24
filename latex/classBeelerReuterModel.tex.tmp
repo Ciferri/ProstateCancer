@@ -1,0 +1,130 @@
+\hypertarget{classBeelerReuterModel}{}\section{Beeler\+Reuter\+Model Class Reference}
+\label{classBeelerReuterModel}\index{Beeler\+Reuter\+Model@{Beeler\+Reuter\+Model}}
+
+
+Inheritance diagram for Beeler\+Reuter\+Model\+:
+% FIG 0
+
+
+Collaboration diagram for Beeler\+Reuter\+Model\+:
+% FIG 1
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual int {\bfseries Model\+Init\+Sim} ()\hypertarget{classBeelerReuterModel_a9890c0f91790d85d3f2b8a58049b355a}{}\label{classBeelerReuterModel_a9890c0f91790d85d3f2b8a58049b355a}
+
+\item 
+virtual int {\bfseries Next\+Sample\+Hit} ()\hypertarget{classBeelerReuterModel_ab893bf3ed9c42675395f65a936af2c26}{}\label{classBeelerReuterModel_ab893bf3ed9c42675395f65a936af2c26}
+
+\item 
+virtual int {\bfseries Model\+Outputs} ()\hypertarget{classBeelerReuterModel_a3736f1c67c618af86ac2c79d6581ba56}{}\label{classBeelerReuterModel_a3736f1c67c618af86ac2c79d6581ba56}
+
+\item 
+virtual int {\bfseries Model\+Update} (double time)\hypertarget{classBeelerReuterModel_a06acb362d2657fba9a8dae99b105cb3d}{}\label{classBeelerReuterModel_a06acb362d2657fba9a8dae99b105cb3d}
+
+\item 
+virtual int {\bfseries Model\+Derivatives} (double time, Param\+Vect $\ast$variables, Param\+Vect $\ast$derivadas)\hypertarget{classBeelerReuterModel_a1e167674a8f34e82cf21a87902244c0c}{}\label{classBeelerReuterModel_a1e167674a8f34e82cf21a87902244c0c}
+
+\item 
+virtual int {\bfseries Model\+Terminate} ()\hypertarget{classBeelerReuterModel_a57424cce39c70580b3a1cdd8d2f999c8}{}\label{classBeelerReuterModel_a57424cce39c70580b3a1cdd8d2f999c8}
+
+\item 
+virtual int {\bfseries Model\+Start} ()\hypertarget{classBeelerReuterModel_af9c823f5cfc5a03664a425f029f75185}{}\label{classBeelerReuterModel_af9c823f5cfc5a03664a425f029f75185}
+
+\item 
+{\bfseries Beeler\+Reuter\+Model} (double Vm\+Rest)\hypertarget{classBeelerReuterModel_af77b4e212a0ec7313155c3502857204b}{}\label{classBeelerReuterModel_af77b4e212a0ec7313155c3502857204b}
+
+\item 
+void {\bfseries Rate\+Constants} (Param\+Vect $\ast$variables)\hypertarget{classBeelerReuterModel_a101e29dbd89ff2f7cb6a0850a0f1a5ae}{}\label{classBeelerReuterModel_a101e29dbd89ff2f7cb6a0850a0f1a5ae}
+
+\item 
+double {\bfseries get\+S\+T\+\_\+X} ()\hypertarget{classBeelerReuterModel_a9d955489a224975e69d2d0c742456a48}{}\label{classBeelerReuterModel_a9d955489a224975e69d2d0c742456a48}
+
+\item 
+double {\bfseries get\+I\+N\+\_\+Z} ()\hypertarget{classBeelerReuterModel_a9b0349035f97cc4c6944b66c06bcbd0e}{}\label{classBeelerReuterModel_a9b0349035f97cc4c6944b66c06bcbd0e}
+
+\item 
+void {\bfseries set\+I\+N\+\_\+Z} (double input)\hypertarget{classBeelerReuterModel_a7c2fdaabb0d9abd75a9416495fbc8772}{}\label{classBeelerReuterModel_a7c2fdaabb0d9abd75a9416495fbc8772}
+
+\item 
+void {\bfseries set\+I\+NC} (double input)\hypertarget{classBeelerReuterModel_a9ea9360099642ee8964481a5c6d9a00c}{}\label{classBeelerReuterModel_a9ea9360099642ee8964481a5c6d9a00c}
+
+\item 
+void {\bfseries set\+S\+T\+\_\+X} (double state)\hypertarget{classBeelerReuterModel_a6e9f0e23661a9768e9752f53c81c77a8}{}\label{classBeelerReuterModel_a6e9f0e23661a9768e9752f53c81c77a8}
+
+\item 
+double {\bfseries get\+I\+NA} ()\hypertarget{classBeelerReuterModel_a4ed1e9a4eca88ba7b7a63b40a6103c8d}{}\label{classBeelerReuterModel_a4ed1e9a4eca88ba7b7a63b40a6103c8d}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double {\bfseries AM}\hypertarget{classBeelerReuterModel_a755fa34f6d319dd190dea4eb8eece4b5}{}\label{classBeelerReuterModel_a755fa34f6d319dd190dea4eb8eece4b5}
+
+\item 
+double {\bfseries BM}\hypertarget{classBeelerReuterModel_af9e66f30d9648af8e3a9fec128c96e3a}{}\label{classBeelerReuterModel_af9e66f30d9648af8e3a9fec128c96e3a}
+
+\item 
+double {\bfseries AH}\hypertarget{classBeelerReuterModel_af41cfbdd856dc7394f2acb234a3bfb27}{}\label{classBeelerReuterModel_af41cfbdd856dc7394f2acb234a3bfb27}
+
+\item 
+double {\bfseries BH}\hypertarget{classBeelerReuterModel_a1e0b869bb59c014b2802aaf1bdb7b615}{}\label{classBeelerReuterModel_a1e0b869bb59c014b2802aaf1bdb7b615}
+
+\item 
+double {\bfseries AJ}\hypertarget{classBeelerReuterModel_a048fc4b2ea6ca72efe26e770e9bd8c1f}{}\label{classBeelerReuterModel_a048fc4b2ea6ca72efe26e770e9bd8c1f}
+
+\item 
+double {\bfseries BJ}\hypertarget{classBeelerReuterModel_ae73e2c0bf23b443c111991740371f066}{}\label{classBeelerReuterModel_ae73e2c0bf23b443c111991740371f066}
+
+\item 
+double {\bfseries AD}\hypertarget{classBeelerReuterModel_a0c01ff5b9fc0d9e93875ae269361ef79}{}\label{classBeelerReuterModel_a0c01ff5b9fc0d9e93875ae269361ef79}
+
+\item 
+double {\bfseries BD}\hypertarget{classBeelerReuterModel_ac074fd56f9d5dcd03bc31dd925cb5c95}{}\label{classBeelerReuterModel_ac074fd56f9d5dcd03bc31dd925cb5c95}
+
+\item 
+double {\bfseries AF}\hypertarget{classBeelerReuterModel_adb5af9a2ba392cdfef426953e0dd9549}{}\label{classBeelerReuterModel_adb5af9a2ba392cdfef426953e0dd9549}
+
+\item 
+double {\bfseries BF}\hypertarget{classBeelerReuterModel_a4213644f2223e9c21b6c6d72587ffde2}{}\label{classBeelerReuterModel_a4213644f2223e9c21b6c6d72587ffde2}
+
+\item 
+double {\bfseries AX}\hypertarget{classBeelerReuterModel_a588b837d9d61993b71365d4cb6fa7a8e}{}\label{classBeelerReuterModel_a588b837d9d61993b71365d4cb6fa7a8e}
+
+\item 
+double {\bfseries BX}\hypertarget{classBeelerReuterModel_afca146bc49040f0da67111e90dabf29e}{}\label{classBeelerReuterModel_afca146bc49040f0da67111e90dabf29e}
+
+\item 
+double {\bfseries IX}\hypertarget{classBeelerReuterModel_a4736c87ca84141da0436e67f374858d8}{}\label{classBeelerReuterModel_a4736c87ca84141da0436e67f374858d8}
+
+\item 
+double {\bfseries I\+NA}\hypertarget{classBeelerReuterModel_a20884da5d9be990182c7b0a0c7433a8c}{}\label{classBeelerReuterModel_a20884da5d9be990182c7b0a0c7433a8c}
+
+\item 
+double {\bfseries ES}\hypertarget{classBeelerReuterModel_a32f3f009dfc8a6c4199ab90f142c2c7b}{}\label{classBeelerReuterModel_a32f3f009dfc8a6c4199ab90f142c2c7b}
+
+\item 
+double {\bfseries IS}\hypertarget{classBeelerReuterModel_a8ec5315c114de297dcaa617899ac0aa3}{}\label{classBeelerReuterModel_a8ec5315c114de297dcaa617899ac0aa3}
+
+\item 
+double {\bfseries IK}\hypertarget{classBeelerReuterModel_ae4d1081814bfa98427ed5fd13bca87e0}{}\label{classBeelerReuterModel_ae4d1081814bfa98427ed5fd13bca87e0}
+
+\item 
+double {\bfseries IT}\hypertarget{classBeelerReuterModel_a923b50e55cf5746112d9df4d291238e8}{}\label{classBeelerReuterModel_a923b50e55cf5746112d9df4d291238e8}
+
+\item 
+double {\bfseries I\+Ext}\hypertarget{classBeelerReuterModel_a8b738b4f6a27112628e6f1558ee821cd}{}\label{classBeelerReuterModel_a8b738b4f6a27112628e6f1558ee821cd}
+
+\item 
+double {\bfseries thres\+Test}\hypertarget{classBeelerReuterModel_a183fb2d676473011816cc17ac28ce394}{}\label{classBeelerReuterModel_a183fb2d676473011816cc17ac28ce394}
+
+\item 
+double {\bfseries Vm\+Rest\+Init}\hypertarget{classBeelerReuterModel_aa57f389428f5e9537de26ac9bd341ca5}{}\label{classBeelerReuterModel_aa57f389428f5e9537de26ac9bd341ca5}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Beeler\+Reuter\+Model.\+h\item 
+Beeler\+Reuter\+Model.\+cpp\end{DoxyCompactItemize}

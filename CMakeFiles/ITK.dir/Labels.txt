@@ -1,0 +1,13 @@
+# Target labels
+ ITK
+# Source files and their labels
+/home/ciferri/Bureau/stage/v2/M2SLv0.1_EP/M2SLv0.1_EP/CMakeFiles/ITK
+/home/ciferri/Bureau/stage/v2/M2SLv0.1_EP/M2SLv0.1_EP/CMakeFiles/ITK.rule
+/home/ciferri/Bureau/stage/v2/M2SLv0.1_EP/M2SLv0.1_EP/CMakeFiles/ITK-complete.rule
+/home/ciferri/Bureau/stage/v2/M2SLv0.1_EP/M2SLv0.1_EP/External-Projects/ITK/src/ITK-stamp/ITK-install.rule
+/home/ciferri/Bureau/stage/v2/M2SLv0.1_EP/M2SLv0.1_EP/External-Projects/ITK/src/ITK-stamp/ITK-mkdir.rule
+/home/ciferri/Bureau/stage/v2/M2SLv0.1_EP/M2SLv0.1_EP/External-Projects/ITK/src/ITK-stamp/ITK-download.rule
+/home/ciferri/Bureau/stage/v2/M2SLv0.1_EP/M2SLv0.1_EP/External-Projects/ITK/src/ITK-stamp/ITK-update.rule
+/home/ciferri/Bureau/stage/v2/M2SLv0.1_EP/M2SLv0.1_EP/External-Projects/ITK/src/ITK-stamp/ITK-patch.rule
+/home/ciferri/Bureau/stage/v2/M2SLv0.1_EP/M2SLv0.1_EP/External-Projects/ITK/src/ITK-stamp/ITK-configure.rule
+/home/ciferri/Bureau/stage/v2/M2SLv0.1_EP/M2SLv0.1_EP/External-Projects/ITK/src/ITK-stamp/ITK-build.rule

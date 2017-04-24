@@ -1,0 +1,70 @@
+\hypertarget{classGenericBRIschTissue}{}\section{Generic\+B\+R\+Isch\+Tissue Class Reference}
+\label{classGenericBRIschTissue}\index{Generic\+B\+R\+Isch\+Tissue@{Generic\+B\+R\+Isch\+Tissue}}
+
+
+Inheritance diagram for Generic\+B\+R\+Isch\+Tissue\+:
+% FIG 0
+
+
+Collaboration diagram for Generic\+B\+R\+Isch\+Tissue\+:
+% FIG 1
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual int {\bfseries Model\+Init\+Sim} ()\hypertarget{classGenericBRIschTissue_abc2faeec4111d67038453d97dabed873}{}\label{classGenericBRIschTissue_abc2faeec4111d67038453d97dabed873}
+
+\item 
+virtual int {\bfseries Next\+Sample\+Hit} ()\hypertarget{classGenericBRIschTissue_ac44db367a9af155b503aeb226034ab60}{}\label{classGenericBRIschTissue_ac44db367a9af155b503aeb226034ab60}
+
+\item 
+virtual int {\bfseries Model\+Outputs} ()\hypertarget{classGenericBRIschTissue_a93afda79cc9d7826fc6dab3dc6e49d6c}{}\label{classGenericBRIschTissue_a93afda79cc9d7826fc6dab3dc6e49d6c}
+
+\item 
+virtual int {\bfseries Model\+Update} (double time)\hypertarget{classGenericBRIschTissue_aaa0d04407ed32840fb4fdc8a24160720}{}\label{classGenericBRIschTissue_aaa0d04407ed32840fb4fdc8a24160720}
+
+\item 
+virtual int {\bfseries Model\+Derivatives} (double time, Param\+Vect $\ast$variables, Param\+Vect $\ast$derivadas)\hypertarget{classGenericBRIschTissue_a37d6afd28135fe2f3919fa0d2cca7c47}{}\label{classGenericBRIschTissue_a37d6afd28135fe2f3919fa0d2cca7c47}
+
+\item 
+virtual int {\bfseries Model\+Terminate} ()\hypertarget{classGenericBRIschTissue_a568b7e6abee2417c20198541a4e85f7f}{}\label{classGenericBRIschTissue_a568b7e6abee2417c20198541a4e85f7f}
+
+\item 
+virtual int {\bfseries Model\+Start} ()\hypertarget{classGenericBRIschTissue_a44924cfdd87f8e55f0b2e1d164ae9903}{}\label{classGenericBRIschTissue_a44924cfdd87f8e55f0b2e1d164ae9903}
+
+\item 
+double {\bfseries Calculate\+CK} (int index)\hypertarget{classGenericBRIschTissue_af37c3463407e6de87d146365f5d49435}{}\label{classGenericBRIschTissue_af37c3463407e6de87d146365f5d49435}
+
+\item 
+double {\bfseries Calculate\+Coup\+Par} (int index)\hypertarget{classGenericBRIschTissue_a71db064cad192ddd11f8d60f17d8979c}{}\label{classGenericBRIschTissue_a71db064cad192ddd11f8d60f17d8979c}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double {\bfseries Tm}\hypertarget{classGenericBRIschTissue_aac8f611536bde8bd17a06555eeb0ec2d}{}\label{classGenericBRIschTissue_aac8f611536bde8bd17a06555eeb0ec2d}
+
+\item 
+double {\bfseries Lm}\hypertarget{classGenericBRIschTissue_a359eda8c6e38881a7ffb0b42a0558f85}{}\label{classGenericBRIschTissue_a359eda8c6e38881a7ffb0b42a0558f85}
+
+\item 
+double {\bfseries coup\+Param}\hypertarget{classGenericBRIschTissue_aa822abc12039f2223e652debe0dba268}{}\label{classGenericBRIschTissue_aa822abc12039f2223e652debe0dba268}
+
+\item 
+int {\bfseries filter} \mbox{[}F\+I\+L\+T\+E\+R\+S\+I\+ZE\mbox{]}\mbox{[}F\+I\+L\+T\+E\+R\+S\+I\+ZE\mbox{]}\hypertarget{classGenericBRIschTissue_a5adec89324d0afdc2d16868006863c50}{}\label{classGenericBRIschTissue_a5adec89324d0afdc2d16868006863c50}
+
+\item 
+\hyperlink{classModel}{Model} $\ast$ {\bfseries tissue} \mbox{[}T\+I\+S\+S\+U\+E\+S\+I\+ZE\mbox{]}\mbox{[}T\+I\+S\+S\+U\+E\+S\+I\+ZE\mbox{]}\hypertarget{classGenericBRIschTissue_a4268c0751c4f8659d7797c4865c559da}{}\label{classGenericBRIschTissue_a4268c0751c4f8659d7797c4865c559da}
+
+\item 
+double $\ast$ {\bfseries grad\+Tissue} \mbox{[}T\+I\+S\+S\+U\+E\+S\+I\+ZE\mbox{]}\mbox{[}T\+I\+S\+S\+U\+E\+S\+I\+ZE\mbox{]}\hypertarget{classGenericBRIschTissue_abd673311ba76abf65ea0375394e48040}{}\label{classGenericBRIschTissue_abd673311ba76abf65ea0375394e48040}
+
+\item 
+double {\bfseries grad\+Lin} \mbox{[}T\+I\+S\+S\+U\+E\+S\+I\+ZE $\ast$T\+I\+S\+S\+U\+E\+S\+I\+ZE\mbox{]}\mbox{[}1\mbox{]}\hypertarget{classGenericBRIschTissue_a02174af1a81a8fd6f5c78ba3094bfda3}{}\label{classGenericBRIschTissue_a02174af1a81a8fd6f5c78ba3094bfda3}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+genericbrischtissue.\+h\item 
+genericbrischtissue.\+cpp\end{DoxyCompactItemize}

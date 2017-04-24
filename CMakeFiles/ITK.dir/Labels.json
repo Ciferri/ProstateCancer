@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ciferri/Bureau/stage/v2/M2SLv0.1_EP/M2SLv0.1_EP/CMakeFiles/ITK"
+		},
+		{
+			"file" : "/home/ciferri/Bureau/stage/v2/M2SLv0.1_EP/M2SLv0.1_EP/CMakeFiles/ITK.rule"
+		},
+		{
+			"file" : "/home/ciferri/Bureau/stage/v2/M2SLv0.1_EP/M2SLv0.1_EP/CMakeFiles/ITK-complete.rule"
+		},
+		{
+			"file" : "/home/ciferri/Bureau/stage/v2/M2SLv0.1_EP/M2SLv0.1_EP/External-Projects/ITK/src/ITK-stamp/ITK-install.rule"
+		},
+		{
+			"file" : "/home/ciferri/Bureau/stage/v2/M2SLv0.1_EP/M2SLv0.1_EP/External-Projects/ITK/src/ITK-stamp/ITK-mkdir.rule"
+		},
+		{
+			"file" : "/home/ciferri/Bureau/stage/v2/M2SLv0.1_EP/M2SLv0.1_EP/External-Projects/ITK/src/ITK-stamp/ITK-download.rule"
+		},
+		{
+			"file" : "/home/ciferri/Bureau/stage/v2/M2SLv0.1_EP/M2SLv0.1_EP/External-Projects/ITK/src/ITK-stamp/ITK-update.rule"
+		},
+		{
+			"file" : "/home/ciferri/Bureau/stage/v2/M2SLv0.1_EP/M2SLv0.1_EP/External-Projects/ITK/src/ITK-stamp/ITK-patch.rule"
+		},
+		{
+			"file" : "/home/ciferri/Bureau/stage/v2/M2SLv0.1_EP/M2SLv0.1_EP/External-Projects/ITK/src/ITK-stamp/ITK-configure.rule"
+		},
+		{
+			"file" : "/home/ciferri/Bureau/stage/v2/M2SLv0.1_EP/M2SLv0.1_EP/External-Projects/ITK/src/ITK-stamp/ITK-build.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"ITK"
+		],
+		"name" : "ITK"
+	}
+}

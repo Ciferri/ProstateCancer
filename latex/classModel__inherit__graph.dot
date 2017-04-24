@@ -1,0 +1,19 @@
+digraph "Model"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Model",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="BeelerReuterModel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classBeelerReuterModel.html"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="Generic2DTissue",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGeneric2DTissue.html"];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="generic2dtissueProstate",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classgeneric2dtissueProstate.html"];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="GenericBRIschTissue",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classGenericBRIschTissue.html"];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="IschBR",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classIschBR.html"];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="prostateCell",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classprostateCell.html"];
+}
