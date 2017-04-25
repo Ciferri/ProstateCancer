@@ -312,7 +312,3 @@ int *generic2dtissueProstate::Coord_K_to_XY(int k)
     return tab;
     // dans le main : int *array = CoordVectXY(k);	
 }
-
-
-
-

@@ -61,41 +61,6 @@ main.cpp
 #   )
 # 
 
-set(${PROJECT_NAME}_CMAKE_DIRS
-   ${CMAKE_SOURCE_DIR}/superbuild
-   )
-
-set(CMAKE_MODULE_PATH
-  ${${PROJECT_NAME}_CMAKE_DIRS}
-  ${CMAKE_MODULE_PATH}
-  )
-include(GenerateExportHeader)
-
-include(ExternalProject)
-include(ConfigureExternalProjectVariables)
-
-# ITK
-option(USE_SYSTEM_ITK "Use system installed ITK" OFF)
-
-if (USE_SYSTEM_ITK)
-  find_package(ITK REQUIRED)
-  set(ITK_BUILD_DIR ${ITK_DIR})
-else()
-  include(ITK)
-endif()
-
-
-configure_file(${CMAKE_SOURCE_DIR}/superbuild/BinariesPackaging.cmake.in
-  ${CMAKE_BINARY_DIR}/BinariesPackaging.cmake
-  @ONLY IMMEDIATE)
-
-add_custom_target(pack-binaries
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-  COMMAND ${CMAKE_COMMAND} -P ${CMAKE_BINARY_DIR}/BinariesPackaging.cmake
-  # DEPENDS Anima_Private
-  COMMENT "-- Generating binary packages"
-  )
-
 
 
 # cmake_minimum_required(VERSION 2.8)

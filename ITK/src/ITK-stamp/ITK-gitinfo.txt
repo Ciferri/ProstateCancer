@@ -1,3 +1,0 @@
-repository='https://github.com/InsightSoftwareConsortium/ITK.git'
-module=''
-tag=''

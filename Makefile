@@ -111,32 +111,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named ITK
-
-# Build rule for target.
-ITK: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ITK
-.PHONY : ITK
-
-# fast build rule for target.
-ITK/fast:
-	$(MAKE) -f CMakeFiles/ITK.dir/build.make CMakeFiles/ITK.dir/build
-.PHONY : ITK/fast
-
-#=============================================================================
-# Target rules for targets named pack-binaries
-
-# Build rule for target.
-pack-binaries: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 pack-binaries
-.PHONY : pack-binaries
-
-# fast build rule for target.
-pack-binaries/fast:
-	$(MAKE) -f CMakeFiles/pack-binaries.dir/build.make CMakeFiles/pack-binaries.dir/build
-.PHONY : pack-binaries/fast
-
-#=============================================================================
 # Target rules for targets named m2slv01
 
 # Build rule for target.
@@ -318,10 +292,8 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... ITK"
-	@echo "... pack-binaries"
-	@echo "... m2slv01"
 	@echo "... rebuild_cache"
+	@echo "... m2slv01"
 	@echo "... Model.o"
 	@echo "... Model.i"
 	@echo "... Model.s"
