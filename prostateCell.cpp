@@ -22,6 +22,7 @@
 
 #define OUT_CONS_O2 	outputs->at(0)
 
+
 //State variables
 #define ST_NUM_ALIVE 	states->at(0)
 #define ST_NUM_DEAD 	states->at(1)
@@ -38,6 +39,7 @@
 #define VAR_NUM_VES		variable->at(3)
 #define VAR_PO2_INT		variable->at(4)
 #define VAR_STATE_1		variable->at(5)
+
 
 prostateCell::prostateCell() : Model(DESS,1,6,1,2,0)
 {
@@ -109,7 +111,7 @@ int prostateCell::ModelUpdate(double time/*, ParamVect *inputs*/)
   ST_NUM_DEAD	= 0;
   ST_NUM_TUMOR	= 0;		
   ST_NUM_VES	= 0;
-  ST_PO2_INT	= IN_PO2;
+  ST_PO2_INT	= IN_PO2;// - OUT_CONS_O2;
   ST_STATE_1	= 0;
  
 
@@ -182,6 +184,7 @@ void prostateCell::setIN_Z(double input)
 {
   IN_PO2=input;
 }
+
 
 
 void prostateCell::setST_X(double state)

@@ -1,0 +1,1 @@
+mencoder "mf://*.png" -ovc lavc -mf fps=5 -o output.avi

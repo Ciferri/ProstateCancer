@@ -53,12 +53,14 @@ public:
   double conso_pO2;	//Consomation of pO2
   double delta;
 
-  double filter[FILTERSIZE][FILTERSIZE];
+  double filterIn[FILTERSIZE][FILTERSIZE];  
+  double filterOut[FILTERSIZE][FILTERSIZE];
 
   Model *tissue[TISSUESIZE][TISSUESIZE];
   double *gradTissue[TISSUESIZE][TISSUESIZE];
   double gradLin[TISSUESIZE*TISSUESIZE][1];
-  double resDiffusion[TISSUESIZE][TISSUESIZE];
+  double resDiffusionIn[TISSUESIZE][TISSUESIZE];  
+  double resDiffusionOut[TISSUESIZE][TISSUESIZE];
   double initImageTissue[TISSUESIZE][TISSUESIZE];
   double Conso_PO2[TISSUESIZE][TISSUESIZE];
 

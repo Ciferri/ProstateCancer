@@ -34,6 +34,8 @@ generic2dtissueProstate::generic2dtissueProstate() : Model(DESS,0,0,0,0,TISSUESI
     for (int j=0;j<TISSUESIZE;j++)
     {
       tissue[i][j] = components->at(count);				/**< tableau du tissue */
+      gradTissue[i][j] = gradLin[count];
+      initImageTissue[i][j] = ((prostateCell*)tissue[i][j])->getST_X();
       count += 1;
     }
   }
@@ -48,12 +50,22 @@ generic2dtissueProstate::generic2dtissueProstate() : Model(DESS,0,0,0,0,TISSUESI
   Vmax = 15;
   K_conso = 2.5;
   
-  //~ filter[0][0]=0.125; filter[0][1]=0.125; filter[0][2]=0.125;
-  //~ filter[1][0]=0.125; filter[1][1]=1;filter[1][2]=0.125;
-  //~ filter[2][0]=0.125; filter[2][1]=0.125; filter[2][2]=0.125;				
-  filter[0][0]=1; filter[0][1]=1; filter[0][2]=1;
-  filter[1][0]=1; filter[1][1]=8;filter[1][2]=1;
-  filter[2][0]=1; filter[2][1]=1; filter[2][2]=1;				
+  //~ filterIn[0][0]=0.125; filterIn[0][1]=0.125; filterIn[0][2]=0.125;
+  //~ filterIn[1][0]=0.125; filterIn[1][1]=-1;	  filterIn[1][2]=0.125;
+  //~ filterIn[2][0]=0.125; filterIn[2][1]=0.125; filterIn[2][2]=0.125;
+  				
+  //~ filterOut[0][0]=-0.125; filterOut[0][1]=-0.125; filterOut[0][2]=-0.125;
+  //~ filterOut[1][0]=-0.125; filterOut[1][1]=1;	  filterOut[1][2]=-0.125;
+  //~ filterOut[2][0]=-0.125; filterOut[2][1]=-0.125; filterOut[2][2]=-0.125;
+  
+  filterIn[0][0]=1; filterIn[0][1]=1; 	filterIn[0][2]=1;
+  filterIn[1][0]=1; filterIn[1][1]=-8;	filterIn[1][2]=1;
+  filterIn[2][0]=1; filterIn[2][1]=1; 	filterIn[2][2]=1;
+  				
+  filterOut[0][0]=-1; filterOut[0][1]=-1; filterOut[0][2]=-1;
+  filterOut[1][0]=-1; filterOut[1][1]=8;  filterOut[1][2]=-1;
+  filterOut[2][0]=-1; filterOut[2][1]=-1; filterOut[2][2]=-1;
+  			
 }
 
 /**
@@ -140,16 +152,17 @@ int generic2dtissueProstate::ModelOutputs()
  * */
 int generic2dtissueProstate::ModelUpdate(double time)
 {
-  double tempGrad;
+  double tempGradIn;
+  double tempGradOut;
 
   //updating of all cells
   for (int i=0;i<getNumComponents();i++)
     (components->at(i))->ModelUpdate(time);
   
   ModelInitSim((TISSUESIZE-1)/2,(TISSUESIZE-1)/2,INIT_VASCULAR_PO2); /**< Test pour avoir une impulsion au centre de l'image */
-  
-  for (int i=0;i<TISSUESIZE;i++)
-    for (int j=0;j<TISSUESIZE;j++){
+ 
+   for (int i=0;i<TISSUESIZE;i++)
+     for (int j=0;j<TISSUESIZE;j++){
 		initImageTissue[i][j] = ((prostateCell*)tissue[i][j])->getST_X();
 		Conso_PO2[i][j] = (initImageTissue[i][j]*Vmax*time_step_s)/(K_conso + initImageTissue[i][j]);
 	}
@@ -161,78 +174,126 @@ int generic2dtissueProstate::ModelUpdate(double time)
    * */
   for (int j=1;j<TISSUESIZE-1;j++)
   {	
-    tempGrad = filter[1][0]*((prostateCell*)tissue[0][j-1])->getST_X() +
-      filter[1][2]*((prostateCell*)tissue[0][j])->getST_X() +
-      filter[2][0]*((prostateCell*)tissue[1][j+1])->getST_X() +
-      filter[2][1]*((prostateCell*)tissue[1][j-1])->getST_X() +
-      filter[2][2]*((prostateCell*)tissue[1][j+1])->getST_X() -
-      (filter[0][0]+filter[0][1]+filter[0][2]+filter[1][0]+filter[1][2])*((prostateCell*)tissue[0][j])->getST_X();    
-    resDiffusion[0][j] = tempGrad*coupParam/5; // Resultat de la diffusion
+    tempGradIn = filterIn[1][0]*((prostateCell*)tissue[0][j-1])->getST_X() +
+      filterIn[1][2]*((prostateCell*)tissue[0][j])->getST_X() +
+      filterIn[2][0]*((prostateCell*)tissue[1][j+1])->getST_X() +
+      filterIn[2][1]*((prostateCell*)tissue[1][j-1])->getST_X() +
+      filterIn[2][2]*((prostateCell*)tissue[1][j+1])->getST_X() -
+      (filterIn[0][0]+filterIn[0][1]+filterIn[0][2]+filterIn[1][0]+filterIn[1][2])*((prostateCell*)tissue[0][j])->getST_X();    
+    resDiffusionIn[0][j] = tempGradIn*coupParam/5; // Resultat de la diffusion
+
+    tempGradOut = filterOut[1][0]*((prostateCell*)tissue[0][j-1])->getST_X() +
+      filterOut[1][2]*((prostateCell*)tissue[0][j])->getST_X() +
+      filterOut[2][0]*((prostateCell*)tissue[1][j+1])->getST_X() +
+      filterOut[2][1]*((prostateCell*)tissue[1][j-1])->getST_X() +
+      filterOut[2][2]*((prostateCell*)tissue[1][j+1])->getST_X() -
+      (filterOut[0][0]+filterOut[0][1]+filterOut[0][2]+filterOut[1][0]+filterOut[1][2])*((prostateCell*)tissue[0][j])->getST_X();    
+    resDiffusionOut[0][j] = tempGradOut*coupParam/5; // Resultat de la diffusion
     
   }
   
   /**
    * First row / First Cell
    * */   
-  tempGrad = filter[1][2]*((prostateCell*)tissue[TISSUESIZE-2][0])->getST_X() +
-    filter[2][1]*((prostateCell*)tissue[TISSUESIZE-2][1])->getST_X() +
-    filter[2][2]*((prostateCell*)tissue[TISSUESIZE-1][1])->getST_X() -
-    (filter[1][2]+filter[2][1]+filter[2][2])*((prostateCell*)tissue[0][0])->getST_X();  
-  resDiffusion[0][0] = tempGrad*coupParam/3;
+  tempGradIn = filterIn[1][2]*((prostateCell*)tissue[TISSUESIZE-2][0])->getST_X() +
+    filterIn[2][1]*((prostateCell*)tissue[TISSUESIZE-2][1])->getST_X() +
+    filterIn[2][2]*((prostateCell*)tissue[TISSUESIZE-1][1])->getST_X() -
+    (filterIn[1][2]+filterIn[2][1]+filterIn[2][2])*((prostateCell*)tissue[0][0])->getST_X();  
+  resDiffusionIn[0][0] = tempGradIn*coupParam/3;
+  
+  tempGradOut = filterOut[1][2]*((prostateCell*)tissue[TISSUESIZE-2][0])->getST_X() +
+    filterOut[2][1]*((prostateCell*)tissue[TISSUESIZE-2][1])->getST_X() +
+    filterOut[2][2]*((prostateCell*)tissue[TISSUESIZE-1][1])->getST_X() -
+    (filterOut[1][2]+filterOut[2][1]+filterOut[2][2])*((prostateCell*)tissue[0][0])->getST_X();  
+  resDiffusionOut[0][0] = tempGradOut*coupParam/3;
     
   /**
    * First row / Last Cell
    * */   
-  tempGrad = filter[1][0]*((prostateCell*)tissue[0][TISSUESIZE-2])->getST_X() +
-    filter[2][0]*((prostateCell*)tissue[1][TISSUESIZE-2])->getST_X() +
-    filter[2][1]*((prostateCell*)tissue[1][TISSUESIZE-1])->getST_X() -
-    (filter[1][0]+filter[2][0]+filter[2][1])*((prostateCell*)tissue[0][TISSUESIZE-1])->getST_X();  
-  resDiffusion[0][TISSUESIZE-1] = tempGrad*coupParam/3;
+  tempGradIn = filterIn[1][0]*((prostateCell*)tissue[0][TISSUESIZE-2])->getST_X() +
+    filterIn[2][0]*((prostateCell*)tissue[1][TISSUESIZE-2])->getST_X() +
+    filterIn[2][1]*((prostateCell*)tissue[1][TISSUESIZE-1])->getST_X() -
+    (filterIn[1][0]+filterIn[2][0]+filterIn[2][1])*((prostateCell*)tissue[0][TISSUESIZE-1])->getST_X();  
+  resDiffusionIn[0][TISSUESIZE-1] = tempGradIn*coupParam/3;
+  
+  tempGradOut = filterOut[1][0]*((prostateCell*)tissue[0][TISSUESIZE-2])->getST_X() +
+    filterOut[2][0]*((prostateCell*)tissue[1][TISSUESIZE-2])->getST_X() +
+    filterOut[2][1]*((prostateCell*)tissue[1][TISSUESIZE-1])->getST_X() -
+    (filterOut[1][0]+filterOut[2][0]+filterOut[2][1])*((prostateCell*)tissue[0][TISSUESIZE-1])->getST_X();  
+  resDiffusionOut[0][TISSUESIZE-1] = tempGradOut*coupParam/3;
   
   /**
    * Last row / First Cell
    * */   
-  tempGrad = filter[0][1]*((prostateCell*)tissue[TISSUESIZE-2][0])->getST_X() +
-    filter[0][2]*((prostateCell*)tissue[TISSUESIZE-2][1])->getST_X() +
-    filter[1][2]*((prostateCell*)tissue[TISSUESIZE-1][1])->getST_X() -
-    (filter[0][1]+filter[0][2]+filter[1][2])*((prostateCell*)tissue[TISSUESIZE-1][0])->getST_X();  
-  resDiffusion[TISSUESIZE-1][0] = tempGrad*coupParam/3;
+  tempGradIn = filterIn[0][1]*((prostateCell*)tissue[TISSUESIZE-2][0])->getST_X() +
+    filterIn[0][2]*((prostateCell*)tissue[TISSUESIZE-2][1])->getST_X() +
+    filterIn[1][2]*((prostateCell*)tissue[TISSUESIZE-1][1])->getST_X() -
+    (filterIn[0][1]+filterIn[0][2]+filterIn[1][2])*((prostateCell*)tissue[TISSUESIZE-1][0])->getST_X();  
+  resDiffusionIn[TISSUESIZE-1][0] = tempGradIn*coupParam/3;
+  
+  tempGradOut = filterOut[0][1]*((prostateCell*)tissue[TISSUESIZE-2][0])->getST_X() +
+    filterOut[0][2]*((prostateCell*)tissue[TISSUESIZE-2][1])->getST_X() +
+    filterOut[1][2]*((prostateCell*)tissue[TISSUESIZE-1][1])->getST_X() -
+    (filterOut[0][1]+filterOut[0][2]+filterOut[1][2])*((prostateCell*)tissue[TISSUESIZE-1][0])->getST_X();  
+  resDiffusionOut[TISSUESIZE-1][0] = tempGradOut*coupParam/3;
 
   /**
    * Last row / Middle Cells
    * */
   for (int j=1;j<TISSUESIZE-1;j++)
   {	
-    tempGrad = filter[0][0]*((prostateCell*)tissue[TISSUESIZE-2][j-1])->getST_X() +
-      filter[0][1]*((prostateCell*)tissue[TISSUESIZE-2][j])->getST_X() +
-      filter[0][2]*((prostateCell*)tissue[TISSUESIZE-2][j+1])->getST_X() +
-      filter[1][0]*((prostateCell*)tissue[TISSUESIZE-1][j-1])->getST_X() +
-      filter[1][2]*((prostateCell*)tissue[TISSUESIZE-1][j+1])->getST_X() -
-      (filter[0][0]+filter[0][1]+filter[0][2]+filter[1][0]+filter[1][2])*((prostateCell*)tissue[TISSUESIZE-1][j])->getST_X();    
-    resDiffusion[TISSUESIZE-1][j] = tempGrad*coupParam/5;
+    tempGradIn = filterIn[0][0]*((prostateCell*)tissue[TISSUESIZE-2][j-1])->getST_X() +
+      filterIn[0][1]*((prostateCell*)tissue[TISSUESIZE-2][j])->getST_X() +
+      filterIn[0][2]*((prostateCell*)tissue[TISSUESIZE-2][j+1])->getST_X() +
+      filterIn[1][0]*((prostateCell*)tissue[TISSUESIZE-1][j-1])->getST_X() +
+      filterIn[1][2]*((prostateCell*)tissue[TISSUESIZE-1][j+1])->getST_X() -
+      (filterIn[0][0]+filterIn[0][1]+filterIn[0][2]+filterIn[1][0]+filterIn[1][2])*((prostateCell*)tissue[TISSUESIZE-1][j])->getST_X();    
+    resDiffusionIn[TISSUESIZE-1][j] = tempGradIn*coupParam/5;
+    
+    tempGradOut = filterOut[0][0]*((prostateCell*)tissue[TISSUESIZE-2][j-1])->getST_X() +
+      filterOut[0][1]*((prostateCell*)tissue[TISSUESIZE-2][j])->getST_X() +
+      filterOut[0][2]*((prostateCell*)tissue[TISSUESIZE-2][j+1])->getST_X() +
+      filterOut[1][0]*((prostateCell*)tissue[TISSUESIZE-1][j-1])->getST_X() +
+      filterOut[1][2]*((prostateCell*)tissue[TISSUESIZE-1][j+1])->getST_X() -
+      (filterOut[0][0]+filterOut[0][1]+filterOut[0][2]+filterOut[1][0]+filterOut[1][2])*((prostateCell*)tissue[TISSUESIZE-1][j])->getST_X();    
+    resDiffusionOut[TISSUESIZE-1][j] = tempGradOut*coupParam/5;
   }
       
   /**
    * Last row / Last Cell
    * */   
-  tempGrad = filter[0][0]*((prostateCell*)tissue[TISSUESIZE-2][TISSUESIZE-2])->getST_X() +
-    filter[0][1]*((prostateCell*)tissue[TISSUESIZE-2][TISSUESIZE-1])->getST_X() +
-    filter[1][0]*((prostateCell*)tissue[TISSUESIZE-1][TISSUESIZE-2])->getST_X() -
-    (filter[0][0]+filter[0][1]+filter[1][0])*((prostateCell*)tissue[TISSUESIZE-1][TISSUESIZE-1])->getST_X();
-  resDiffusion[TISSUESIZE-1][TISSUESIZE-1] = tempGrad*coupParam/3;
+  tempGradIn = filterIn[0][0]*((prostateCell*)tissue[TISSUESIZE-2][TISSUESIZE-2])->getST_X() +
+    filterIn[0][1]*((prostateCell*)tissue[TISSUESIZE-2][TISSUESIZE-1])->getST_X() +
+    filterIn[1][0]*((prostateCell*)tissue[TISSUESIZE-1][TISSUESIZE-2])->getST_X() -
+    (filterIn[0][0]+filterIn[0][1]+filterIn[1][0])*((prostateCell*)tissue[TISSUESIZE-1][TISSUESIZE-1])->getST_X();
+  resDiffusionIn[TISSUESIZE-1][TISSUESIZE-1] = tempGradIn*coupParam/3;
+  
+  tempGradOut = filterOut[0][0]*((prostateCell*)tissue[TISSUESIZE-2][TISSUESIZE-2])->getST_X() +
+    filterOut[0][1]*((prostateCell*)tissue[TISSUESIZE-2][TISSUESIZE-1])->getST_X() +
+    filterOut[1][0]*((prostateCell*)tissue[TISSUESIZE-1][TISSUESIZE-2])->getST_X() -
+    (filterOut[0][0]+filterOut[0][1]+filterOut[1][0])*((prostateCell*)tissue[TISSUESIZE-1][TISSUESIZE-1])->getST_X();
+  resDiffusionOut[TISSUESIZE-1][TISSUESIZE-1] = tempGradOut*coupParam/3;
 
   /**
    * Last column / Middle Cells
    * */
   for (int i=1;i<TISSUESIZE-1;i++)
   {	  
-    tempGrad = filter[0][0]*((prostateCell*)tissue[i-1][TISSUESIZE-2])->getST_X() +
-      filter[0][1]*((prostateCell*)tissue[i-1][TISSUESIZE-1])->getST_X() +
-      filter[1][0]*((prostateCell*)tissue[i][TISSUESIZE-2])->getST_X() +
-      filter[2][0]*((prostateCell*)tissue[i+1][TISSUESIZE-2])->getST_X() +
-      filter[2][1]*((prostateCell*)tissue[i+1][TISSUESIZE-1])->getST_X() -
-      (filter[0][0]+filter[0][1]+filter[1][0]+filter[2][0]+filter[2][1])*((prostateCell*)tissue[i][TISSUESIZE-1])->getST_X();
-    resDiffusion[i][TISSUESIZE-1] = tempGrad*coupParam/5;
+    tempGradIn = filterIn[0][0]*((prostateCell*)tissue[i-1][TISSUESIZE-2])->getST_X() +
+      filterIn[0][1]*((prostateCell*)tissue[i-1][TISSUESIZE-1])->getST_X() +
+      filterIn[1][0]*((prostateCell*)tissue[i][TISSUESIZE-2])->getST_X() +
+      filterIn[2][0]*((prostateCell*)tissue[i+1][TISSUESIZE-2])->getST_X() +
+      filterIn[2][1]*((prostateCell*)tissue[i+1][TISSUESIZE-1])->getST_X() -
+      (filterIn[0][0]+filterIn[0][1]+filterIn[1][0]+filterIn[2][0]+filterIn[2][1])*((prostateCell*)tissue[i][TISSUESIZE-1])->getST_X();
+    resDiffusionIn[i][TISSUESIZE-1] = tempGradIn*coupParam/5;
+    
+    tempGradOut = filterOut[0][0]*((prostateCell*)tissue[i-1][TISSUESIZE-2])->getST_X() +
+      filterOut[0][1]*((prostateCell*)tissue[i-1][TISSUESIZE-1])->getST_X() +
+      filterOut[1][0]*((prostateCell*)tissue[i][TISSUESIZE-2])->getST_X() +
+      filterOut[2][0]*((prostateCell*)tissue[i+1][TISSUESIZE-2])->getST_X() +
+      filterOut[2][1]*((prostateCell*)tissue[i+1][TISSUESIZE-1])->getST_X() -
+      (filterOut[0][0]+filterOut[0][1]+filterOut[1][0]+filterOut[2][0]+filterOut[2][1])*((prostateCell*)tissue[i][TISSUESIZE-1])->getST_X();
+    resDiffusionOut[i][TISSUESIZE-1] = tempGradOut*coupParam/5;
   }
   
   /**
@@ -240,13 +301,21 @@ int generic2dtissueProstate::ModelUpdate(double time)
    * */
   for (int i=1;i<TISSUESIZE-1;i++) 
   {	  
-	tempGrad = filter[0][1]*((prostateCell*)tissue[i-1][0])->getST_X() +
-      filter[0][2]*((prostateCell*)tissue[i-1][1])->getST_X() +
-      filter[1][2]*((prostateCell*)tissue[i][1])->getST_X() +
-      filter[2][1]*((prostateCell*)tissue[i+1][0])->getST_X() +
-      filter[2][2]*((prostateCell*)tissue[i+1][1])->getST_X() -
-      (filter[0][1]+filter[0][2]+filter[1][2]+filter[2][1]+filter[2][2])*((prostateCell*)tissue[i][0])->getST_X();
-    resDiffusion[i][0] = tempGrad*coupParam/5;
+	tempGradIn = filterIn[0][1]*((prostateCell*)tissue[i-1][0])->getST_X() +
+      filterIn[0][2]*((prostateCell*)tissue[i-1][1])->getST_X() +
+      filterIn[1][2]*((prostateCell*)tissue[i][1])->getST_X() +
+      filterIn[2][1]*((prostateCell*)tissue[i+1][0])->getST_X() +
+      filterIn[2][2]*((prostateCell*)tissue[i+1][1])->getST_X() -
+      (filterIn[0][1]+filterIn[0][2]+filterIn[1][2]+filterIn[2][1]+filterIn[2][2])*((prostateCell*)tissue[i][0])->getST_X();
+    resDiffusionIn[i][0] = tempGradIn*coupParam/5;
+    
+	tempGradOut = filterOut[0][1]*((prostateCell*)tissue[i-1][0])->getST_X() +
+      filterOut[0][2]*((prostateCell*)tissue[i-1][1])->getST_X() +
+      filterOut[1][2]*((prostateCell*)tissue[i][1])->getST_X() +
+      filterOut[2][1]*((prostateCell*)tissue[i+1][0])->getST_X() +
+      filterOut[2][2]*((prostateCell*)tissue[i+1][1])->getST_X() -
+      (filterOut[0][1]+filterOut[0][2]+filterOut[1][2]+filterOut[2][1]+filterOut[2][2])*((prostateCell*)tissue[i][0])->getST_X();
+    resDiffusionOut[i][0] = tempGradOut*coupParam/5;
   }
 
   /**
@@ -256,22 +325,38 @@ int generic2dtissueProstate::ModelUpdate(double time)
   {
     for (int j=1;j<TISSUESIZE-1;j++)
     {
-		tempGrad = filter[0][0]*((prostateCell*)tissue[i-1][j-1])->getST_X() +
-			filter[0][1]*((prostateCell*)tissue[i-1][j])->getST_X() +
-			filter[0][2]*((prostateCell*)tissue[i-1][j+1])->getST_X() +
-			filter[1][0]*((prostateCell*)tissue[i][j-1])->getST_X() -
-			filter[1][1]*((prostateCell*)tissue[i][j])->getST_X() +
-			filter[1][2]*((prostateCell*)tissue[i][j+1])->getST_X() +
-			filter[2][0]*((prostateCell*)tissue[i+1][j-1])->getST_X() +
-			filter[2][1]*((prostateCell*)tissue[i+1][j])->getST_X() +
-			filter[2][2]*((prostateCell*)tissue[i+1][j+1])->getST_X();
-		resDiffusion[i][j] = tempGrad*coupParam/8;
+		tempGradIn = filterIn[0][0]*((prostateCell*)tissue[i-1][j-1])->getST_X() +
+			filterIn[0][1]*((prostateCell*)tissue[i-1][j])->getST_X() +
+			filterIn[0][2]*((prostateCell*)tissue[i-1][j+1])->getST_X() +
+			filterIn[1][0]*((prostateCell*)tissue[i][j-1])->getST_X() +
+			filterIn[1][1]*((prostateCell*)tissue[i][j])->getST_X() +
+			filterIn[1][2]*((prostateCell*)tissue[i][j+1])->getST_X() +
+			filterIn[2][0]*((prostateCell*)tissue[i+1][j-1])->getST_X() +
+			filterIn[2][1]*((prostateCell*)tissue[i+1][j])->getST_X() +
+			filterIn[2][2]*((prostateCell*)tissue[i+1][j+1])->getST_X();
+		resDiffusionIn[i][j] = tempGradIn*coupParam/8;
+		
+		tempGradOut = filterOut[0][0]*((prostateCell*)tissue[i-1][j-1])->getST_X() +
+			filterOut[0][1]*((prostateCell*)tissue[i-1][j])->getST_X() +
+			filterOut[0][2]*((prostateCell*)tissue[i-1][j+1])->getST_X() +
+			filterOut[1][0]*((prostateCell*)tissue[i][j-1])->getST_X() +
+			filterOut[1][1]*((prostateCell*)tissue[i][j])->getST_X() +
+			filterOut[1][2]*((prostateCell*)tissue[i][j+1])->getST_X() +
+			filterOut[2][0]*((prostateCell*)tissue[i+1][j-1])->getST_X() +
+			filterOut[2][1]*((prostateCell*)tissue[i+1][j])->getST_X() +
+			filterOut[2][2]*((prostateCell*)tissue[i+1][j+1])->getST_X();
+		resDiffusionOut[i][j] = tempGradOut*coupParam/8;
     }
   }
   
   for (int i=0;i<TISSUESIZE;i++)
-    for (int j=0;j<TISSUESIZE;j++)
-		((prostateCell*)tissue[i][j])->setIN_Z(initImageTissue[i][j] - resDiffusion[i][j] - Conso_PO2[i][j]); /**< set the pO2 of cell */
+    for (int j=0;j<TISSUESIZE;j++){
+		((prostateCell*)tissue[i][j])->setIN_Z(initImageTissue[i][j] - resDiffusionIn[i][j] + Conso_PO2[i][j] + resDiffusionOut[i][j]); /**< set the pO2 of cell */
+		//initImageTissue[i][j] = ((prostateCell*)tissue[i][j])->getST_X();
+	}
+	
+
+		
   
   return 0;
 }
